@@ -1,0 +1,16 @@
+{
+  "name": "biblioteca_project",
+  "version": "1.0.0",
+  "description": "Mi proyecto es para simular una biblioteca, Esto sirve",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "json-server --watch db.json"
+  },
+  "keywords": [],
+  "author": "Johan Sebastian Pachon Mojica",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "0.17.3"
+  }
+}
