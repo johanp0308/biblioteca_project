@@ -5,7 +5,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev": "json-server --watch db.json"
+    "dev": "json-server --watch db.json --port 5010 --host 127.0.0.1"
   },
   "keywords": [],
   "author": "Johan Sebastian Pachon Mojica",

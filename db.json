@@ -1,4 +1,10 @@
 {
+  "categoria":[],
+  "editorial":[],
+  "estado-libro":[],
   "libro":[],
-  "profile":[]
+  "prestamo":[],
+  "reserva":[],
+  "usuario":[],
+  "autor":[]
 }
