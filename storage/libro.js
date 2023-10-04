@@ -2,7 +2,7 @@ import {env} from '../config.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-// const end
+const endpoint = 'libro'
 
 const validLibro = (data) => {
     const {id=null, autorId=null, categoriaId=null, editorialId=null, titulo=null,
@@ -25,33 +25,32 @@ const validLibro = (data) => {
 
 export const getAll = async() =>{
     config.method = 'GET'
-    let res = await (await fetch(`${uri}/libro`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
     return res;
 }
 export const post = async(obj={}) =>{
-    if(!validLibro(obj)) return "Mando objeto";
-    
+    let valid = validCategoria(obj);    
+    if(valid.status) return valid;
 
     config.method = 'POST'
     config.body = JSON.stringify(obj);
-    let res = await (await fetch(`${uri}/libro`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
     return res;
 }
 export const deletOne = async(id) =>{
     if(typeof id !== 'number') return  {status: 404, message:`${id} is not a number`};
     config.method = 'DELETE';
-    let res = await (await fetch(`${uri}/libro/${id}`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
     return res;
 }
 export const putOne = async(obj={}) =>{
-
-    if(typeof id !== 'number') return {status: 400, message: `El dato id: '${id}' no cumple con el formato`};
-    if(validLibro(obj)) return; 
-    
+    let valid = validCategoria(obj);    
+    if(valid.status) return valid;
     const {id} = obj;
+    if(typeof id !== 'number') return {status: 400, message: `El dato id: '${id}' no cumple con el formato`};
     config.method = 'PUT';
     config.body = JSON.stringify(obj);
-    let res = await (await fetch(`${uri}/libro/${id}`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
     console.log(res);
     return res;
 }
