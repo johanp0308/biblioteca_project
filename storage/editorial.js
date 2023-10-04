@@ -6,7 +6,8 @@ const endpoint = 'editorial'
 
 const validEditorial = (data) => {
     const {editorialId=null, nombre=null, direccion=null, telefono=null} = data;
-    if(typeof obj !== 'Object' || Object.keys(obj)==0) return {status: 404, message:'Porfavor envie algun dato'}
+    
+    if(typeof data !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
     if(typeof nombre !== 'string') return {status: 400, message: `El dato nombre: '${nombre}' no cumple con el formato`};
     if(typeof direccion !== 'string') return {status: 400, message: `El dato nombre: '${direccion}' no cumple con el formato`};
