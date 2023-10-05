@@ -1,0 +1,66 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "nombre": "Comedia"
+    },
+    {
+      "id": 2,
+      "nombre": "Drama"
+    },
+    {
+      "id": 3,
+      "nombre": "Terror"
+    }
+  ],
+  "editoriales": [
+    {
+      "id": 1,
+      "nombre": "Editado del Edit",
+      "direccion": "doblando la esquina y pa' la santamaria",
+      "telefono": "320281820178"
+    }
+  ],
+  "estado-libros": [],
+  "libros": [
+    {
+      "autorId": 1,
+      "categoriaId": 1,
+      "editorialId": 1,
+      "titulo": "Pachon y el machete",
+      "fechaLanzamiento": "2023-02-01",
+      "isbn": 6516598465,
+      "numPaginacion": 120,
+      "estadoId": 1,
+      "id": 1
+    },
+    {
+      "autorId": 2,
+      "categoriaId": 1,
+      "editorialId": 1,
+      "titulo": "Jaider un mundo Oscuro",
+      "fechaLanzamiento": "2023-03-08",
+      "isbn": 666,
+      "numPaginacion": 666,
+      "estadoId": 1,
+      "id": 2
+    }
+  ],
+  "prestamos": [],
+  "reservas": [],
+  "usuarios": [],
+  "autores": [
+    {
+      "id": 1,
+      "nombre": "Johan Sebastian",
+      "apellido": "Pachon Mojica",
+      "nacionalidad": "Ruso"
+    },
+    {
+      "id": 2,
+      "nombre": "Jaider Steven",
+      "apellido": "Mendoza Cardona",
+      "nacionalidad": "Mongolo"
+    }
+  ]
+}
