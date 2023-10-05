@@ -9,12 +9,12 @@ const endpoint = 'authors'
 
 
 const validAutor = (data) => {
-    const {nombre=null, apellido=null,nacionalidad=null} = data;
+    const {name=null, surname=null, nationaly=null} = data;
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'};
 
-    if(typeof nombre !== 'string') return {status: 400, message: `El dato nombre: '${nombre}' no cumple con el formato`};
-    if(typeof apellido !== 'string') return {status: 400, message: `El dato apellido: '${apellido}' no cumple con el formato`};
-    if(typeof nacionalidad !== 'string') return {status: 400, message: `El dato nombre: '${nacionalidad}' no cumple con el formato`};
+    if(typeof name !== 'string') return {status: 400, message: `El dato nombre: '${name}' no cumple con el formato`};
+    if(typeof surname !== 'string') return {status: 400, message: `El dato apellido: '${surname}' no cumple con el formato`};
+    if(typeof nationaly !== 'string') return {status: 400, message: `El dato nombre: '${nationaly}' no cumple con el formato`};
 
     return data;
 }

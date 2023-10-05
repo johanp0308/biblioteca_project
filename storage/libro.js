@@ -12,21 +12,24 @@ const config = {method:'',headers:{"content-type": "application/json"}};
 const endpoint = 'books'
 
 const validLibro = (data) => {
-    const {autorId=null, categoriaId=null, editorialId=null, titulo=null,
-        fechaLanzamiento=null, 
+    const {authorId=null, 
+        categoryId=null, 
+        publisherId=null, 
+        title=null,
+        releasedate=null, 
         isbn=null, 
-        numPaginacion=null, 
-        estadoId=null}=data;
+        pagenum=null, 
+        statusId=null}=data;
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
-    let date = new Date(fechaLanzamiento);
-    if(!(date && date.getFullYear()<=2040)) return {status: 400, message: `El dato fecha: '${fechaLanzamiento}' no cumple con el formato`};
-    if(typeof autorId !== 'number') return {status: 400, message: `El dato autorId: '${autorId}' no cumple con el formato`};
-    if(typeof categoriaId !== 'number') return {status: 400, message: `El dato categoriaId: '${categoriaId}' no cumple con el formato`};
-    if(typeof editorialId !== 'number') return {status: 400, message: `El dato editorialId: '${editorialId}' no cumple con el formato`};
-    if(typeof titulo !== 'string') return {status: 400, message: `El dato titulo:'${titulo}' no cumple con el formato`};
+    let date = new Date(releasedate);
+    if(!(date && date.getFullYear()<=2040)) return {status: 400, message: `El dato fecha: '${releasedate}' no cumple con el formato`};
+    if(typeof authorId !== 'number') return {status: 400, message: `El dato autorId: '${authorId}' no cumple con el formato`};
+    if(typeof categoryId !== 'number') return {status: 400, message: `El dato categoriaId: '${categoryId}' no cumple con el formato`};
+    if(typeof publisherId !== 'number') return {status: 400, message: `El dato editorialId: '${publisherId}' no cumple con el formato`};
+    if(typeof title !== 'string') return {status: 400, message: `El dato titulo:'${title}' no cumple con el formato`};
     if(typeof isbn !== 'number') return {status: 400, message: `El dato isbn: '${isbn}' no cumple con el formato`};
-    if(typeof numPaginacion !== 'number') return {status: 400, message: `El dato numPaginacion: '${numPaginacion}' no cumple con el formato`};
-    if(typeof estadoId !== 'number') return {status: 400, message: `El dato estadoId: '${estadoId}' no cumple con el formato`};
+    if(typeof pagenum !== 'number') return {status: 400, message: `El dato numPaginacion: '${pagenum}' no cumple con el formato`};
+    if(typeof statusId !== 'number') return {status: 400, message: `El dato estadoId: '${statusId}' no cumple con el formato`};
     return data;
 }
 
@@ -73,12 +76,11 @@ export const putOne = async(obj={}) =>{
 export const  getRelationShips = async() =>{
     let res = await getAll();
     res = await Promise.all(res.map( async (data)=>{
-        let {categoriaId:idCAt, autorId:idAutor, editorialId:idEdit, estadoId:IdEstado} = data;
-
-        data.categoriaId = await getOneCategoria(idCAt);
-        data.autorId = await getOneAutor(idAutor);
-        data.editorialId = await getOneEditorial(idEdit);
-        data.estadoId = await getOneEstado(IdEstado);
+        let {categoryId:idCAt, authorId:idAutor, publisherId:idEdit, statusId:IdEstado} = data;
+        data.categoryId = await getOneCategoria(idCAt);
+        data.authorId = await getOneAutor(idAutor);
+        data.publisherId = await getOneEditorial(idEdit);
+        data.statusId = await getOneEstado(IdEstado);
         return data;
     }));
     

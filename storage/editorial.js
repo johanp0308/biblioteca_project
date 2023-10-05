@@ -6,14 +6,15 @@ const config = {method:'',headers:{"content-type": "application/json"}};
 const endpoint = 'editorials'
 
 const validEditorial = (data) => {
-    const {nombre=null, direccion=null, telefono=null} = data;
+    const {name=null, 
+        direction=null, 
+        phone=null} = data;
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 400, message:'Porfavor envie algun dato'}
-    if(typeof nombre !== 'string') return {status: 400, message: `El dato nombre: '${nombre}' no cumple con el formato`};
-    if(typeof direccion !== 'string') return {status: 400, message: `El dato nombre: '${direccion}' no cumple con el formato`};
-    if(typeof telefono !== 'string') return {status: 400, message: `El dato nombre: '${telefono}' no cumple con el formato`};
+    if(typeof name !== 'string') return {status: 400, message: `El dato nombre: '${name}' no cumple con el formato`};
+    if(typeof direction !== 'string') return {status: 400, message: `El dato nombre: '${direction}' no cumple con el formato`};
+    if(typeof phone !== 'string') return {status: 400, message: `El dato nombre: '${phone}' no cumple con el formato`};
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
     let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
