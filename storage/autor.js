@@ -1,11 +1,11 @@
 import {env} from '../config.js';
-import { compareEstructure as compareObject } from './validations.js';
+import { compareEstructure as compareObject } from '../tools/validations.js'
 
 
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'autores'
+const endpoint = 'authors'
 
 
 const validAutor = (data) => {

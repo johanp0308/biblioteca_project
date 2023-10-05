@@ -1,8 +1,9 @@
 import {env} from '../config.js';
+import { compareEstructure as compareObject } from '../tools/validations.js'
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'usuario'
+const endpoint = 'users'
 
 const validEditorial = (data) => {
     let dateToday = (new Date()).toISOString().slice(0,10)

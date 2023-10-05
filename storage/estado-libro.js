@@ -3,11 +3,11 @@ import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'estado-libro'
+const endpoint = 'state-books'
 
 const validEstadoLibro = (data) => {
-    const {estadoId=null, nombre=null, descripcion=null} = data;
-    if(typeof data !== 'Object' || Object.keys(obj)==0) return {status: 404, message:'Porfavor envie algun dato'}
+    const { nombre=null, descripcion=null} = data;
+    if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
     if(typeof nombre !== 'string') return {status: 400, message: `El dato nombre: '${nombre}' no cumple con el formato`};
     if(typeof descripcion !== 'string') return {status: 400, message: `El dato nombre: '${descripcion}' no cumple con el formato`};
@@ -17,8 +17,15 @@ const validEstadoLibro = (data) => {
 
 export const getAll = async() =>{
     config.method = 'GET'
-    let res = await (await fetch(`${uri}/${endpoint}}`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
     return res;
+}
+export const getOne = async(id) =>{
+    config.method = 'GET'
+    console.log(`${uri}/${endpoint}/${id}`);
+    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
+    
+    return (Object.keys(res).length>0) ? res : {status:400,message:'That Object does not exits'};
 }
 export const post = async(obj={}) =>{
     let valid = validEstadoLibro(obj);    
@@ -47,3 +54,10 @@ export const putOne = async(obj={}) =>{
 
     return res;
 }
+
+// let estado = {
+//     nombre:'Agotado',
+//     descripcion:'Estan agotados sus ejemplares.'
+// }
+
+// console.log(await post(estado));

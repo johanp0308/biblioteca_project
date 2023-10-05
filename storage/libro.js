@@ -1,7 +1,7 @@
 import {getOne as getOneAutor} from './autor.js'
-import { getOne as getOneCategoria} from './categoria.js';
-import { getOne as getOneEditorial} from './editorial.js';
-
+import {getOne as getOneCategoria} from './categoria.js';
+import {getOne as getOneEditorial} from './editorial.js';
+import {getOne as getOneEstado} from './estado-libro.js'
 
 import {env} from '../config.js';
 import { compareEstructure as compareObject } from '../tools/validations.js';
@@ -9,15 +9,8 @@ import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'libros'
+const endpoint = 'books'
 
-const compareData = (data,dataC)=>{
-    let dataNew = Object.keys(data).map(key=>{
-        console.log(key, data[key]);
-    })
-    console.log(dataC)
-    return dataNew;
-}
 const validLibro = (data) => {
     const {autorId=null, categoriaId=null, editorialId=null, titulo=null,
         fechaLanzamiento=null, 
@@ -79,17 +72,17 @@ export const putOne = async(obj={}) =>{
 
 export const  getRelationShips = async() =>{
     let res = await getAll();
-    res = await res.map( async (data)=>{
-        let {categoriaId:idCAt, autorId:idAutor, editorialId:idEdit} = data;
-        console.log(idAutor,idCAt,idEdit);
-        
+    res = await Promise.all(res.map( async (data)=>{
+        let {categoriaId:idCAt, autorId:idAutor, editorialId:idEdit, estadoId:IdEstado} = data;
+
         data.categoriaId = await getOneCategoria(idCAt);
-        data.autorId = await getOneAutor(autorId);
+        data.autorId = await getOneAutor(idAutor);
         data.editorialId = await getOneEditorial(idEdit);
-        
+        data.estadoId = await getOneEstado(IdEstado);
         return data;
-    });
-    console.log(res);
+    }));
+    
+    return res;
 }
 
-getRelationShips();
+console.log(await getRelationShips());

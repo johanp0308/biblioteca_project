@@ -3,7 +3,7 @@ import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'reserva'
+const endpoint = 'bookings'
 
 
 // @ Falta validar las fechas

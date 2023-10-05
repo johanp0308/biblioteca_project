@@ -1,66 +1,97 @@
 {
-  "categorias": [
+  "categories": [
     {
       "id": 1,
-      "nombre": "Comedia"
+      "name": "Comedy"
     },
     {
       "id": 2,
-      "nombre": "Drama"
+      "name": "Drama"
     },
     {
       "id": 3,
-      "nombre": "Terror"
+      "name": "Terror"
     }
   ],
-  "editoriales": [
+  "editorials": [
     {
       "id": 1,
-      "nombre": "Editado del Edit",
-      "direccion": "doblando la esquina y pa' la santamaria",
-      "telefono": "320281820178"
+      "name": "Edited from Edit",
+      "direction": "turning the corner and pa' la santamaria",
+      "phone": "320281820178"
     }
   ],
-  "estado-libros": [],
-  "libros": [
+  "state": [
     {
-      "autorId": 1,
-      "categoriaId": 1,
-      "editorialId": 1,
-      "titulo": "Pachon y el machete",
-      "fechaLanzamiento": "2023-02-01",
-      "isbn": 6516598465,
-      "numPaginacion": 120,
-      "estadoId": 1,
+      "name": "Damaged",
+      "description": "The book is missing a page, or has wear on its pages and/or its",
       "id": 1
     },
     {
-      "autorId": 2,
-      "categoriaId": 1,
-      "editorialId": 1,
-      "titulo": "Jaider un mundo Oscuro",
-      "fechaLanzamiento": "2023-03-08",
+      "name": "Available",
+      "description": "Book that can be sold.",
+      "id": 2
+    },
+    {
+      "name": "Sold out",
+      "description": "Copies are out of stock.",
+      "id": 3
+    },
+    {
+      "name": "Sold out",
+      "description": "Copies are out of stock.",
+      "id": 4
+    },
+    {
+      "name": "Sold out",
+      "description": "Copies are out of stock.",
+      "id": 5
+    },
+    {
+      "name": "Sold out",
+      "description": "Copies are out of stock.",
+      "id": 6
+    }
+  ],
+  "books": [
+    {
+      "authorId": 1,
+      "categoryId": 1,
+      "publisherId": 1,
+      "title": "Pachon and the machete",
+      "releasedate": "2023-02-01",
+      "isbn": 6516598465,
+      "pagenum": 120,
+      "statusId": 1,
+      "id": 1
+    },
+    {
+      "authorId": 2,
+      "categoryId": 1,
+      "publisherId": 1,
+      "title": "Jaider a Dark World",
+      "releasedate": "2023-03-08",
       "isbn": 666,
-      "numPaginacion": 666,
-      "estadoId": 1,
+      "pagenum": 666,
+      "statusId": 2,
       "id": 2
     }
   ],
-  "prestamos": [],
-  "reservas": [],
-  "usuarios": [],
-  "autores": [
+  "loans": [],
+  "bookings": [],
+  "users": [],
+  "authors": [
     {
       "id": 1,
-      "nombre": "Johan Sebastian",
-      "apellido": "Pachon Mojica",
-      "nacionalidad": "Ruso"
+      "name": "Johan Sebastian",
+      "surname": "Pachon Mojica",
+      "nationality": "Russian"
     },
     {
       "id": 2,
-      "nombre": "Jaider Steven",
-      "apellido": "Mendoza Cardona",
-      "nacionalidad": "Mongolo"
+      "name": "Jaider Steven",
+      "surname": "Mendoza Cardona",
+      "nationality": "Mongolian"
     }
   ]
 }
