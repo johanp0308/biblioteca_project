@@ -1,13 +1,16 @@
 import {env} from '../config.js';
+import { compareEstructure as compareObject } from './validations.js';
+
+
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'autor'
+const endpoint = 'autores'
 
 
 const validAutor = (data) => {
-    const {autorId=null, nombre=null, apellido=null,nacionalidad=null} = data;
-    if(typeof data !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
+    const {nombre=null, apellido=null,nacionalidad=null} = data;
+    if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'};
 
     if(typeof nombre !== 'string') return {status: 400, message: `El dato nombre: '${nombre}' no cumple con el formato`};
     if(typeof apellido !== 'string') return {status: 400, message: `El dato apellido: '${apellido}' no cumple con el formato`};
@@ -15,21 +18,18 @@ const validAutor = (data) => {
 
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
-    let res = await (await fetch(`${uri}/${endpoint}}`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
     return res;
 }
-
 export const getOne = async(id) =>{
     config.method = 'GET';
     let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
-    return res;
+    return (Object.keys(res).length>0) ? res : {status:404, message:'That object does not exits'};
 }
-
 export const post = async(obj={}) =>{
-    let valid = validAutor(obj);    
+    let valid = validAutor(obj);
     if(valid.status) return valid; 
     config.method = 'POST'
     config.body = JSON.stringify(obj);
@@ -39,18 +39,19 @@ export const post = async(obj={}) =>{
 export const deletOne = async(autorId) =>{
     if(typeof autorId !== 'number') return {status: 400, message: `El dato autorId: '${autorId}' no cumple con el formato`};
     config.method = 'DELETE';
-    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}/${autorId}`,config)).json();
     return res;
 }
 export const putOne = async(obj={}) =>{
     let valid = validAutor(obj);    
     if(valid.status) return valid; 
-    const {autorId} = obj;
-    if(typeof autorId !== 'number') return {status: 400, message: `El dato autorId: '${autorId}' no cumple con el formato`};
+    const {id} = obj;
+    if(typeof id !== 'number') return {status: 400, message: `El dato autorId: '${id}' no cumple con el formato`};
     
+    let newEdit = compareObject(await getOne(id),obj);
     config.method = 'PUT';
-    config.body = JSON.stringify(obj);
-    let res = await (await fetch(`${uri}/${endpoint}/${autorId}`,config)).json();
+    config.body = JSON.stringify(newEdit);
+    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
 
     return res;
 }

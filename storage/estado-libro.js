@@ -1,4 +1,5 @@
 import {env} from '../config.js';
+import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
@@ -38,9 +39,11 @@ export const putOne = async(obj={}) =>{
     if(valid.status) return valid;  
     const {estadoId} = obj;
     if(typeof estadoId !== 'number') return {status: 400, message: `El dato autorId: '${estadoId}' no cumple con el formato`};
+
+    let newEdit = compareObject(await getOne(id),obj);
     config.method = 'PUT';
-    config.body = JSON.stringify(obj);
-    let res = await (await fetch(`${uri}/${endpoint}/${estadoId}`,config)).json();
-    console.log(res);
+    config.body = JSON.stringify(newEdit);
+    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
+
     return res;
 }

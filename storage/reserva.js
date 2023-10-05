@@ -1,4 +1,5 @@
 import {env} from '../config.js';
+import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
@@ -9,7 +10,7 @@ const endpoint = 'reserva'
 const validReserva = (data) => {
     let dateToday = (new Date()).toISOString().slice(0,10)
     
-    const {id=null, usuarioId=null, libroId=null, fechaReserva=null, fechaReservaFin=null, estado=null} = data;
+    const {usuarioId=null, libroId=null, fechaReserva=null, fechaReservaFin=null, estado=null} = data;
     if(typeof data !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
     if(typeof usuarioId !== 'string') return {status: 400, message: `El dato usuarioId: '${usuarioId}' no cumple con el formato`};
@@ -49,11 +50,10 @@ export const putOne = async(obj={}) =>{
     
     if(typeof id !== 'number') return {status: 400, message: `El dato autorId: '${id}' no cumple con el formato`};
     
+    let newEdit = compareObject(await getOne(id),obj);
     config.method = 'PUT';
-    config.body = JSON.stringify(obj);
+    config.body = JSON.stringify(newEdit);
     let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
     
-
-
     return res;
 }

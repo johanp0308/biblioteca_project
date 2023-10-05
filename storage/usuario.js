@@ -7,7 +7,7 @@ const endpoint = 'usuario'
 const validEditorial = (data) => {
     let dateToday = (new Date()).toISOString().slice(0,10)
     
-    const {id=null, nombre=null, apellido=null, direccion=null, telefono=null, email=null} = data;
+    const {nombre=null, apellido=null, direccion=null, telefono=null, email=null} = data;
     
     if(typeof data !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
@@ -17,13 +17,16 @@ const validEditorial = (data) => {
     let dateRes = (new Date(fechaReserva)).toISOString().slice(0,10);
     if(!(date && date.ge)) return {status: 400, message: `El dato fechaReserva: '${fechaReserva}' no cumple con el formato`};
     if(typeof fechaReservaFin !== 'string') return {status: 400, message: `El dato fechaReserva: '${fechaReserva}' no cumple con el formato`};
-
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
-    let res = await (await fetch(`${uri}/${endpoint}}`,config)).json();
+    let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
+    return res;
+}
+export const getOne = async (id) =>{
+    config.method = 'GET'
+    let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
     return res;
 }
 export const post = async(obj={}) =>{
@@ -45,9 +48,12 @@ export const putOne = async(obj={}) =>{
     if(valid.status) return valid;  
     const {id} = obj;
     if(typeof id !== 'number') return {status: 400, message: `El dato autorId: '${id}' no cumple con el formato`};
+
+    let newEdit = compareObject(await getOne(id),obj);
     config.method = 'PUT';
-    config.body = JSON.stringify(obj);
+    config.body = JSON.stringify(newEdit);
     let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
-    console.log(res);
+
     return res;
 }
+
