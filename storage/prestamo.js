@@ -10,16 +10,16 @@ const endpoint = 'loans'
 const validarPrestamo = (data) => {
     let dateToday = (new Date()).toISOString().slice(0,10)
 
-    const {userId=null, bookId=null, loandate=null, enddateloan=null, returndate=null, status=null} = data;
+    const {userId=null, bookId=null, loandate=null, dateloan=null, returndate=null, status=null} = data;
     
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
-    let dateI = (new Date(enddateloan)).toISOString().slice(0,10);
-    if(!(dateRes && dateRes < dateToday)) return {status: 400, message: `El dato fechaReserva: '${fechaReserva}' no cumple con el formato`};
+    let dateI = (new Date(dateloan))
+    if(!(dateI && dateRes < dateToday)) return {status: 400, message: `El dato dateloan: '${dateloan}' no cumple con el formato`};
+    let dateF = new Date(loandate);
+    if(!(dateF && dateRes < dateToday)) return {status: 400, message: `El dato loandate: '${loandate}' no cumple con el formato`};
     
-    if(typeof fechaReservaFin !== 'string') return {status: 400, message: `El dato fechaReserva: '${fechaReserva}' no cumple con el formato`};
-    if(typeof usuarioId !== 'string') return {status: 400, message: `El dato usuarioId: '${usuarioId}' no cumple con el formato`};
-    if(typeof libroId !== 'string') return {status: 400, message: `El dato libroId: '${libroId}' no cumple con el formato`};
-    
+    if(typeof userId !== 'string') return {status: 400, message: `El dato userId: '${userId}' no cumple con el formato`};
+    if(typeof bookId !== 'string') return {status: 400, message: `El dato libroId: '${bookId}' no cumple con el formato`};
 
     return data;
 }

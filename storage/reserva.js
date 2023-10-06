@@ -1,5 +1,10 @@
-import {env} from '../config.js';
+import {env} from '../config.';
+
+import {getOne as getOneUSer} from './usuario.js';
+import {getOne as getOneBook} from './libro.js';
+
 import { compareEstructure as compareObject } from '../tools/validations.js';
+
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
@@ -28,7 +33,6 @@ const validReserva = (data) => {
 
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
     let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
@@ -63,3 +67,15 @@ export const putOne = async(obj={}) =>{
     
     return res;
 }
+export const getRelationShips = async() =>{
+    let res = await getAll();
+    res = await Promise.all(res.map( async (data)=>{
+        let {userId:iduser, bookId:idbook} = data;
+        data.userId = await getOneUSer(iduser);
+        data.bookId = await getOneBook(idbook);
+        return data;
+    }));
+    return res;
+}
+
+console.log(await getRelationShips());

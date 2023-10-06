@@ -6,15 +6,15 @@ const config = {method:'',headers:{"content-type": "application/json"}};
 const endpoint = 'state-books'
 
 const validEstadoLibro = (data) => {
-    const { nombre=null, descripcion=null} = data;
+    const { name=null, description=null} = data;
+
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
-    if(typeof nombre !== 'string') return {status: 400, message: `El dato nombre: '${nombre}' no cumple con el formato`};
-    if(typeof descripcion !== 'string') return {status: 400, message: `El dato nombre: '${descripcion}' no cumple con el formato`};
+    if(typeof name !== 'string') return {status: 400, message: `El dato name: '${name}' no cumple con el formato`};
+    if(typeof description !== 'string') return {status: 400, message: `El dato description: '${description}' no cumple con el formato`};
 
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
     let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
@@ -24,7 +24,6 @@ export const getOne = async(id) =>{
     config.method = 'GET'
     console.log(`${uri}/${endpoint}/${id}`);
     let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
-    
     return (Object.keys(res).length>0) ? res : {status:400,message:'That Object does not exits'};
 }
 export const post = async(obj={}) =>{

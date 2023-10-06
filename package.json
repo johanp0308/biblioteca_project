@@ -2,7 +2,7 @@
   "name": "biblioteca_project",
   "version": "1.0.0",
   "description": "Mi proyecto es para simular una biblioteca, Esto sirve",
-  "main": "main.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "dev": "json-server --watch ./data/db.json --port 5010 --host 127.0.0.1"
