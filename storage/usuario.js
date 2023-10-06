@@ -5,19 +5,19 @@ const config = {method:'',headers:{"content-type": "application/json"}};
 
 const endpoint = 'users'
 
-const validEditorial = (data) => {
+const validar = (data) => {
     let dateToday = (new Date()).toISOString().slice(0,10)
     
-    const {nombre=null, apellido=null, direccion=null, telefono=null, email=null} = data;
+    const {name=null, surname=null, direction=null, phone=null, email=null} = data;
     
-    if(typeof data !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
+    if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
-    if(typeof usuarioId !== 'string') return {status: 400, message: `El dato usuarioId: '${usuarioId}' no cumple con el formato`};
-    if(typeof libroId !== 'string') return {status: 400, message: `El dato libroId: '${libroId}' no cumple con el formato`};
-    
-    let dateRes = (new Date(fechaReserva)).toISOString().slice(0,10);
-    if(!(date && date.ge)) return {status: 400, message: `El dato fechaReserva: '${fechaReserva}' no cumple con el formato`};
-    if(typeof fechaReservaFin !== 'string') return {status: 400, message: `El dato fechaReserva: '${fechaReserva}' no cumple con el formato`};
+    if(typeof name !== 'string') return {status: 400, message: `El dato name: '${name}' no cumple con el formato`};
+    if(typeof surname !== 'string') return {status: 400, message: `El dato surname: '${surname}' no cumple con el formato`};
+    if(typeof direction !== 'string') return {status: 400, message: `El dato direction: '${direction}' no cumple con el formato`};
+    if(typeof phone !== 'string') return {status: 400, message: `El dato phone: '${phone}' no cumple con el formato`};
+    if(typeof email !== 'string') return {status: 400, message: `El dato email: '${email}' no cumple con el formato`};
+
     return data;
 }
 export const getAll = async() =>{
