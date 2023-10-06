@@ -32,19 +32,16 @@ const validLibro = (data) => {
     if(typeof statusId !== 'number') return {status: 400, message: `El dato estadoId: '${statusId}' no cumple con el formato`};
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
     let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
     return res;
 }
-
 export const getOne = async(id) =>{
     if(typeof id!== 'number') return  {status: 404, message:`${id} is not a number`};
     config.method = 'GET';JSON.stringify(obj)
     return res;
 }
-
 export const post = async(obj={}) =>{
     let valid = validLibro(obj);    
     if(valid.status) return valid;
@@ -72,7 +69,6 @@ export const putOne = async(obj={}) =>{
     let res = await (await fetch(`${uri}/${endpoint}/${id}`,config)).json();
     return res;
 }
-
 export const  getRelationShips = async() =>{
     let res = await getAll();
     res = await Promise.all(res.map( async (data)=>{
@@ -82,9 +78,10 @@ export const  getRelationShips = async() =>{
         data.publisherId = await getOneEditorial(idEdit);
         data.statusId = await getOneEstado(IdEstado);
         return data;
-    }));
-    
+    }));    
     return res;
 }
 
-console.log(await getRelationShips());
+
+let date = new Date(321546561854);
+
