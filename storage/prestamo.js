@@ -1,3 +1,6 @@
+import {getOne as getOneUser} from './usuario.js';
+import {getOne as getOneBook} from './libro.js'
+
 import {env} from '../config.js';
 import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
@@ -5,12 +8,10 @@ const config = {method:'',headers:{"content-type": "application/json"}};
 
 const endpoint = 'loans'
 
-
-// @ Falta validar las fechas
 const validarPrestamo = (data) => {
     let dateToday = (new Date()).toISOString().slice(0,10)
 
-    const {userId=null, bookId=null, loandate=null, dateloan=null, returndate=null, status=null} = data;
+    const {userId=null, bookId=null, loandate=null, returndate=null, status=null} = data;
     
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
     let dateI = (new Date(dateloan))
@@ -23,10 +24,14 @@ const validarPrestamo = (data) => {
 
     return data;
 }
-
 export const getAll = async() =>{
     config.method = 'GET'
     let res = await (await fetch(`${uri}/${endpoint}`,config)).json();
+    return res;
+}
+export const getOne = async(id) =>{
+    config.method = 'GET'
+    let res = await(await fetch(`${uri}/${endpoint}/${id}`)).json();
     return res;
 }
 export const post = async(obj={}) =>{
@@ -58,3 +63,15 @@ export const putOne = async(obj={}) =>{
     
     return res;
 }
+export const getRelationsShips = async() => {
+    let res = await getAll();
+    res = await Promise.all(res.map(async (data)=>{
+        let {userId:iduser,bookId:idbook} = data;
+        data.userId = await getOneUser(iduser);
+        data.bookId = await getOneBook(idbook);
+        return data;
+    }))
+    return res;
+}
+
+console.log(await getRelationsShips());

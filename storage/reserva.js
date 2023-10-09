@@ -1,4 +1,4 @@
-import {env} from '../config.';
+import {env} from '../config.js';
 
 import {getOne as getOneUSer} from './usuario.js';
 import {getOne as getOneBook} from './libro.js';
@@ -15,20 +15,19 @@ const endpoint = 'bookings'
 const validReserva = (data) => {
     let dateToday = new Date()
     
-    const {userId=null, bookId=null, reservationdate=null, endreservationend=null, status=null} = data;
+    const {userId=null, bookId=null, reservationdate=null, endreservation=null, status=null} = data;
     if(data.constructor.name !== 'Object' || Object.keys(data)==0) return {status: 404, message:'Porfavor envie algun dato'}
 
     if(typeof reservationdate !== 'string') return {status: 400, message: `El dato reservationdate: '${reservationdate}' no cumple con el formato`};
     let dateI = new Date(reservationdate);
     if(!(dateI && dateI < dateToday)) return {status:400, message:`El dato reservationdate: '${reservationdate}' no cumple con el formato`};
 
-    if(typeof endreservationend !== 'string') return {status: 400, message:`El dato endreservationend: '${endreservationend}' no cumple con el formato`};
-    let dateF = new Date(endreservationend);
-    if(!(dateF && dateF < dateToday)) return {status:400, message:`El dato endreservationend: '${endreservationend}' no cumple con el formato`};
+    if(typeof endreservation !== 'string') return {status: 400, message:`El dato endreservation: '${endreservation}' no cumple con el formato`};
+    let dateF = new Date(endreservation);
+    if(!(dateF && dateF < dateToday)) return {status:400, message:`El dato endreservationend: '${endreservation}' no cumple con el formato`};
 
     if(typeof userId !== 'number') return {status: 400, message: `El dato userId: '${userId}' no cumple con el formato`};
     if(typeof bookId !== 'number') return {status: 400, message: `El dato bookId: '${bookId}' no cumple con el formato`};
-    if(typeof endreservationend !== 'number') return {status: 400, message: `El dato endreservationend: '${endreservationend}' no cumple con el formato`};
     if(typeof status !== 'string') return {status: 400, message: `El dato status: '${status}' no cumple con el formato`};
 
     return data;

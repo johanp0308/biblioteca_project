@@ -3,7 +3,7 @@ import { compareEstructure as compareObject } from '../tools/validations.js';
 const uri = `${env.ssl+env.hostName}:${env.port}`
 const config = {method:'',headers:{"content-type": "application/json"}};   
 
-const endpoint = 'state-books'
+const endpoint = 'state'
 
 const validEstadoLibro = (data) => {
     const { name=null, description=null} = data;
@@ -53,10 +53,3 @@ export const putOne = async(obj={}) =>{
 
     return res;
 }
-
-// let estado = {
-//     nombre:'Agotado',
-//     descripcion:'Estan agotados sus ejemplares.'
-// }
-
-// console.log(await post(estado));

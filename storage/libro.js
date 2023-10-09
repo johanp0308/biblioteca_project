@@ -38,8 +38,9 @@ export const getAll = async() =>{
     return res;
 }
 export const getOne = async(id) =>{
+    config.method = 'GET';
     if(typeof id!== 'number') return  {status: 404, message:`${id} is not a number`};
-    config.method = 'GET';JSON.stringify(obj)
+    let res = await(await fetch(`${uri}/${endpoint}/${id}`)).json();
     return res;
 }
 export const post = async(obj={}) =>{
@@ -81,7 +82,4 @@ export const  getRelationShips = async() =>{
     }));    
     return res;
 }
-
-
-let date = new Date(321546561854);
 

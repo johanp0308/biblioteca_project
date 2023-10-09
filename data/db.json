@@ -67,7 +67,7 @@
     },
     {
       "authorId": 2,
-      "categoryId": 1,
+      "categoryId": 2,
       "publisherId": 1,
       "title": "Jaider a Dark World",
       "releasedate": "2023-03-08",
@@ -77,9 +77,35 @@
       "id": 2
     }
   ],
-  "loans": [],
-  "bookings": [],
-  "users": [],
+  "loans": [
+    {
+      "userId":1,
+      "bookId":1,
+      "loandate":"02-08-2020",
+      "returndate":"30-08-2020",
+      "status":"activa"
+    }
+  ],
+  "bookings": [
+    {
+      "userId":1,
+      "bookId":1,
+      "releasedate":"2023-11-21",
+      "endreservation":"2023-12-01",
+      "status":"reservada",
+      "id":1
+    }
+  ],
+  "users": [
+    {
+      "id":1,
+      "name":"Pedrin",
+      "surname":"peres",
+      "direction":"Calle 1",
+      "phone":"684651",
+      "email":"awdqw@gmail.com"
+    }
+  ],
   "authors": [
     {
       "id": 1,
