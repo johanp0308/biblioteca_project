@@ -18,7 +18,9 @@ const data = d.querySelector("#data")
 document.addEventListener("DOMContentLoaded",async(e)=>{
     const endpoint = window.location.href;
     const path = window.location.pathname;
-    // console.log(endpoint,path);
+    
+    // if()
+    
     
 
     /* Loaded Table */
@@ -32,9 +34,15 @@ document.addEventListener("DOMContentLoaded",async(e)=>{
 
 /* Event Delegator */
 document.addEventListener("click",(e)=>{
-
+    
 });
 
 window.addEventListener("popstate",(e)=>{
-    console.log(e)
+    e.preventDefault()
+    const path = window.location.pathname;
+    console.log(e.target)
+    // if(path === '/views/books'){
+    //     e.preventDefault()
+    //     console.log("HOlaa")
+    // }
 })
