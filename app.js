@@ -11,38 +11,36 @@ const routes ={
 /* Elements DOM */
 const d = document
 const dataBook = d.querySelector("#data-book");
-const data = d.querySelector("#data")
+const data = d.querySelector("#data");
 
 /* DOMLoader */
 
-document.addEventListener("DOMContentLoaded",async(e)=>{
+d.addEventListener("DOMContentLoaded",async(e)=>{
     const endpoint = window.location.href;
     const path = window.location.pathname;
     
     // if()
     
-    
-
-    /* Loaded Table */
-    if(dataBook){
-        let res = await getAllBooks();
-        domMg.fillTable(dataBook,res)
+    if(path==='/views/books.html'){
+        const tempTabla = d.querySelector("#tabla");
+        const imported = d.importNode(tempTabla.content, true);
+        console.log(data);
+        // data.appendChild(imported);
+        if(dataBook){
+            let res = await getAllBooks();
+            domMg.fillTable(dataBook,res)
+        }
     }
 
+    /* Loaded Table */
 });
 
 
 /* Event Delegator */
-document.addEventListener("click",(e)=>{
+d.addEventListener("click",(e)=>{
     
 });
 
-window.addEventListener("popstate",(e)=>{
-    e.preventDefault()
-    const path = window.location.pathname;
-    console.log(e.target)
-    // if(path === '/views/books'){
-    //     e.preventDefault()
-    //     console.log("HOlaa")
-    // }
-})
+window.addEventListener("pos",(e)=>{
+
+});
